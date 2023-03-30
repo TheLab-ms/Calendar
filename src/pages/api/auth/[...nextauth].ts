@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
 			if (token.discord) {
 				session.user.discord = token.discord;
 			}
-
+			session.user.image = '';
 			return session;
 		},
 	},

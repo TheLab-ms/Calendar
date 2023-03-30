@@ -19,6 +19,7 @@ declare module 'next-auth' {
 			discord: string;
 			username: string;
 			groups: string[];
+			image?: string;
 		};
 	}
 
