@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id         Int     @id @default(autoincrement())
+  title      String  @unique
+  roomId     String?
+  maxSeating Int?
+  Event      Event[]
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  title String  @unique
+  Event Event[]
+}
+
+model Event {
+  id        Int @id @default(autoincrement())
+  creatorId Int
+
+  title String
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId Int
+
+  startTime DateTime
+  endTime   DateTime
+  allDay    Boolean  @default(false)
+
+  exclusivity Int @default(0)
+
+  minAttendence Int
+  maxAttendence Int
+  minAge        Int?
+
+  description  String
+  specialNotes String?
+  reqMaterials String?
+
+  pending  Boolean @default(true)
+  approved Boolean @default(false)
+}
