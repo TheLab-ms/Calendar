@@ -28,7 +28,7 @@ model Event {
   id        Int @id @default(autoincrement())
   creatorId Int
 
-  title String
+  title     String
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
