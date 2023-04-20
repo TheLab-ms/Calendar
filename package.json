@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "studio": "npx prisma studio",
+    "setup": "npx prisma migrate dev --name init"
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
