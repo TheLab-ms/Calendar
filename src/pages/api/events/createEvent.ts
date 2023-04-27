@@ -11,7 +11,9 @@ export default async function handler(
 		const eventData = req.body;
 
 		// Validate the data and return an error response if necessary
-
+		const modifiedEventData = { ...eventData };
+		modifiedEventData.startTime = new Date(eventData.startTime);
+		modifiedEventData.endTime = new Date(eventData.endTime);
 		// Create a new PrismaClient instance
 		const prisma = new PrismaClient();
 
