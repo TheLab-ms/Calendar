@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { PrismaClient } from '@prisma/client';
 import Layout from '../../components/layout';
@@ -12,8 +11,8 @@ const EventDetails = ({
 		title: string;
 		categoryId: number;
 		locationId: number;
-		startTime: Date;
-		endTime: Date;
+		startTime: string;
+		endTime: string;
 		allDay: boolean;
 		exclusivity: number;
 		minAttendence: number;
@@ -44,9 +43,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	const { id } = context.params;
 	const event = await prisma.event.findUnique({ where: { id: Number(id) } });
-
+	const fixedEvent = JSON.parse(JSON.stringify(event));
 	return {
-		props: { event },
+		props: { event: fixedEvent },
 	};
 };
 
