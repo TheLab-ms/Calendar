@@ -30,7 +30,6 @@ const EventDetails = ({
 		approved: boolean;
 	};
 }) => {
-	console.log(event)
 	const { title, category: { title: categoryName }, location: { title: locationName }, startTime, endTime, reqMaterials, description } = event;
 	const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
 	const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
