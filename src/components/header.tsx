@@ -11,83 +11,32 @@ export default function Header() {
 
   return (
     <header>
-      <noscript>
-        <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
-      </noscript>
-      <div className={styles.signedInStatus}>
-        <p
-          className={`nojs-show ${!session && loading ? styles.loading : styles.loaded
-            }`}
-        >
-          {!session && (
-            <>
-              <span className={styles.notSignedInText}>
-                You are not signed in
-              </span>
-              <Link
-                href="/api/auth/signin"
-                className={styles.buttonPrimary}
-                onClick={(e) => {
-                  e.preventDefault()
-                  signIn()
-                }}
-              >
-                Sign in
-              </Link>
-            </>
-          )}
-          {session?.user && (
-            <>
-              {session.user.image && (
-                <span
-                  style={{ backgroundImage: `url('${session.user.image}')` }}
-                  className={styles.avatar}
-                />
-              )}
-              <span className={styles.signedInText}>
-                <small>Signed in as</small>
-                <br />
-                <strong>{session.user.email ?? session.user.name}</strong>
-              </span>
-              <Link
-                href="/api/auth/signout"
-                className={styles.button}
-                onClick={(e) => {
-                  e.preventDefault()
-                  signOut()
-                }}
-              >
-                Sign out
-              </Link>
-            </>
-          )}
-        </p>
-      </div>
-      <nav>
-        <ul className={styles.navItems}>
-          <li className={styles.navItem}>
-            <Link href="/">Home</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/client">Client</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/server">Server</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/protected">Protected</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/api-example">API</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/admin">Admin</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/me">Me</Link>
-          </li>
-        </ul>
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div className="flex lg:flex-1">
+          <a href="#" className="-m-1.5">
+            <span className="sr-only">TheLab.ms</span>
+            <img className="h-12 w-auto" src="https://kb.thelab.ms/download/attachments/6848523/glider.svg?version=1&modificationDate=1609602177000&api=v2" alt="" />
+          </a>
+        </div>
+        <div className="max-w-7xl lg:flex lg:flex-1 lg:justify-end">
+          <div className="flex items-center">
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900 mr-3">Welcome Guest, Log in</a>
+            <a href="#" className="fab fa-facebook-f mr-2 text-gray-900"></a>
+            <a href="#" className="fab fa-meetup mr-2 text-gray-900"></a>
+            <a href="#" className="fab fa-twitter mr-2 text-gray-900"></a>
+            <a href="#" className="fab fa-linkedin-in mr-2 text-gray-900"></a>
+          </div>
+        </div>
       </nav>
+
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between rounded-md primary p-2 lg:px-8">
+        <h1 className="text-2xl lg:mb-0 font-bold text-white pt-0 pb-0">
+          Test
+        </h1>
+        <div className="text-white">
+          <i className="fas fa-calendar-alt"></i>
+        </div>
+      </div>
     </header>
   )
 }
