@@ -13,10 +13,10 @@ export default function Header() {
     <header>
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5">
+          <Link href="/" className="-m-1.5">
             <span className="sr-only">TheLab.ms</span>
             <img className="h-12 w-auto" src="https://kb.thelab.ms/download/attachments/6848523/glider.svg?version=1&modificationDate=1609602177000&api=v2" alt="" />
-          </a>
+          </Link>
         </div>
         <div className="max-w-7xl lg:flex lg:flex-1 lg:justify-end">
           <div className="flex items-center">
