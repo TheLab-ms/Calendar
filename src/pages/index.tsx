@@ -24,7 +24,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function IndexPage({ events }: { events: EventInput[] }) {
 	return (
 		<Layout>
-			<Calendar events={events} />
+			<div style={{ width: '100%' }}>
+				<Calendar events={events} />
+			</div>
 		</Layout>
 	);
 }

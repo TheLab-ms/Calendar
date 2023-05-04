@@ -10,8 +10,13 @@ const Calendar = ({ events }: { events: EventSourceInput }) => {
 	return (
 		<div>
 			<FullCalendar
-				plugins={[dayGridPlugin]}
+				plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
 				initialView="dayGridMonth"
+				headerToolbar={{
+					left: 'prev,today,next',
+					center: 'title',
+					right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+				}}
 				events={events}
 			/>
 		</div>
