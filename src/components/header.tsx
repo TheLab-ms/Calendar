@@ -1,21 +1,16 @@
 import Link from "next/link"
-import { signIn, signOut, useSession } from "next-auth/react"
-import styles from "./header.module.css"
+import { useSession } from "next-auth/react"
+import Image from "next/image"
 
-// The approach used in this component shows how to build a sign in and sign out
-// component that works on pages which support both client and server side
-// rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const { data: session, status } = useSession()
-  const loading = status === "loading"
-
+  const { data: session, status } = useSession();
   return (
     <header>
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5">
             <span className="sr-only">TheLab.ms</span>
-            <img className="h-12 w-auto" src="https://kb.thelab.ms/download/attachments/6848523/glider.svg?version=1&modificationDate=1609602177000&api=v2" alt="" />
+            <Image src="/images/glider.svg" className="h-12 w-auto" alt="TheLab.ms Logo" width={1} height={1} />
           </Link>
         </div>
         <div className="max-w-7xl lg:flex lg:flex-1 lg:justify-end">
