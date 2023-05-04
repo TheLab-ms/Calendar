@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { PrismaClient } from '@prisma/client';
 import Layout from '../../components/layout';
+import { prisma } from '@/helpers/db';
 
 const EventDetails = ({
 	event,
@@ -64,7 +65,6 @@ const EventDetails = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const prisma = new PrismaClient();
 
 	if (!context.params || !context.params.id) {
 		return {
