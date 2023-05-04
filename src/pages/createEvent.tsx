@@ -1,5 +1,42 @@
 import Layout from '../components/layout';
 
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+const [formData, setFormData] = useState({});
+const [message, setMessage] = useState('');
+
+<input
+  onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+></input>
+
+const handleSubmit = async (e: { preventDefault: () => void; }) => {
+	e.preventDefault();
+	try {
+	  const response = await fetch('/api/events/createEvents', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(formData),
+	  });
+	  if (response.ok) {
+		const data = await response.json();
+		setMessage(`Event created successfully: ${data.id}`);
+	  } else {
+		setMessage('Error creating event');
+	  }
+	} catch (error) {
+	  setMessage('Error creating event');
+	}
+  };
+
+  <form onSubmit={handleSubmit}>
+  ...
+</form>
+
+{message && <p>{message}</p>}
+
 export default function CreateEventPage() {
 	return (
 		<Layout>
