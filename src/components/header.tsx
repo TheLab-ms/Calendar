@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faMeetup, faTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
 export default function Header() {
 	const { data: session, status } = useSession();
@@ -34,10 +36,18 @@ export default function Header() {
 								Welcome Guest, <button onClick={() => signIn()}>Log in</button>
 							</span>
 						)}
-						<a href="#" className="fab fa-facebook-f mr-2 text-gray-900"></a>
-						<a href="#" className="fab fa-meetup mr-2 text-gray-900"></a>
-						<a href="#" className="fab fa-twitter mr-2 text-gray-900"></a>
-						<a href="#" className="fab fa-linkedin-in mr-2 text-gray-900"></a>
+						<a href="https://www.facebook.com/thelabms" className="text-gray-900 mr-2">
+							<FontAwesomeIcon icon={faFacebookF} />
+						</a>
+						<a href="https://www.meetup.com/thelab-ms" className="text-gray-900 mr-2">
+							<FontAwesomeIcon icon={faMeetup} />
+						</a>
+						<a href="https://twitter.com/thelab_ms" className="text-gray-900 mr-2">
+							<FontAwesomeIcon icon={faTwitter} />
+						</a>
+						<a href="https://www.linkedin.com/company/thelab-ms" className="text-gray-900 mr-2">
+							<FontAwesomeIcon icon={faLinkedinIn} />
+						</a>
 					</div>
 				</div>
 			</nav>
