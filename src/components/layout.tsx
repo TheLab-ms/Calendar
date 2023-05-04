@@ -6,9 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <>
             <Header />
             <div className="flex flex-col mx-auto max-w-7xl" id="contents">
-                <div className="flex flew-row centered-contents">
-                    {children}
-                </div>
+                {children}
             </div>
         </>
     )
