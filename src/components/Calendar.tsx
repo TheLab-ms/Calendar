@@ -4,18 +4,22 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import styles from './Calendar.module.css';
+import { EventSourceInput } from '@fullcalendar/core';
 
-const Calendar = () => {
+const Calendar = ({ events }: { events: EventSourceInput }) => {
 	return (
-		<FullCalendar
-			plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
-			initialView="dayGridMonth"
-			headerToolbar={{
-				left: 'prev,today,next',
-				center: 'title',
-				right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
-			}}
-		/>
+		<div>
+			<FullCalendar
+				plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
+				initialView="dayGridMonth"
+				headerToolbar={{
+					left: 'prev,today,next',
+					center: 'title',
+					right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+				}}
+				events={events}
+			/>
+		</div>
 	);
 };
 
