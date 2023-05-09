@@ -1,17 +1,14 @@
 import { withAuth } from 'next-auth/middleware';
 
-// More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
 export default withAuth({
 	callbacks: {
 		authorized({ req, token }) {
-			// `/admin` requires admin role
-			if (req.nextUrl.pathname === '/admin' && token?.groups) {
+			if (req.nextUrl.pathname === '/events/create' && token?.groups) {
 				return token?.groups.includes('Calendar Admin');
 			}
-			// `/me` only requires the user to be logged in
 			return !!token;
 		},
 	},
 });
 
-export const config = { matcher: ['/admin', '/me'] };
+export const config = { matcher: ['/events/create'] };
