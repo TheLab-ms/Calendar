@@ -29,13 +29,11 @@ export default async function handler(
 			data: eventData,
 		});
 
-		// Close the Prisma connection
-		await prisma.$disconnect();
-
 		// Return a success response with the created event data
 		res.status(201).json(newEvent);
 	} else {
 		// Return a 405 response for unsupported request methods
 		res.status(405).json({ message: 'Method not allowed' });
 	}
+	res.status(405).json({ message: 'Method not allowed' });
 }
