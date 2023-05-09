@@ -1,9 +1,37 @@
 import Layout from '../components/layout';
 
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+const [formData, setFormData] = useState({});
+const [message, setMessage] = useState('');
+
+const handleSubmit = async (e: { preventDefault: () => void; }) => {
+	e.preventDefault();
+	try {
+	  const response = await fetch('/api/events/createEvents', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(formData),
+	  });
+	  if (response.ok) {
+		const data = await response.json();
+		setMessage(`Event created successfully: ${data.id}`);
+	  } else {
+		setMessage('Error creating event');
+	  }
+	} catch (error) {
+	  setMessage('Error creating event');
+	}
+  };
+
 export default function CreateEventPage() {
 	return (
 		<Layout>
 			<div className="flex flew-row centered-contents">
+				<form onSubmit={handleSubmit}>
 				<div className="basis-5/12">
 					<input
 						className="eventName"
@@ -16,6 +44,7 @@ export default function CreateEventPage() {
 							borderBottom: '1px solid gray',
 						}}
 						placeholder=" Event Name"
+						onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 					></input>
 					<br></br>
 					<p
@@ -114,6 +143,7 @@ export default function CreateEventPage() {
 									backgroundColor: 'lightgrey',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 						<div className="basis-9">
@@ -130,6 +160,7 @@ export default function CreateEventPage() {
 									backgroundColor: 'lightgrey',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 						<div className="basis-1"></div>
@@ -164,6 +195,7 @@ export default function CreateEventPage() {
 								name="guest"
 								value="Guest"
 								type="checkbox"
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 							<label>&nbsp;Guest</label>
 						</div>
@@ -174,6 +206,7 @@ export default function CreateEventPage() {
 								name="member"
 								value="Member"
 								type="checkbox"
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 							<label>&nbsp;Member</label>
 						</div>
@@ -184,10 +217,12 @@ export default function CreateEventPage() {
 								name="leader"
 								value="Leader"
 								type="checkbox"
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 							<label>&nbsp;Leadership</label>
 						</div>
 					</div>
+					
 				</div>
 
 				<div className="basis-4"></div>
@@ -212,6 +247,7 @@ export default function CreateEventPage() {
 									border: '1px solid gray',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 						<div className="basis-1/3">
@@ -232,6 +268,7 @@ export default function CreateEventPage() {
 									border: '1px solid gray',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 						<div className="basis-1/3">
@@ -252,6 +289,7 @@ export default function CreateEventPage() {
 									border: '1px solid gray',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 					</div>
@@ -271,6 +309,7 @@ export default function CreateEventPage() {
 									backgroundColor: 'whitesmoke',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 						<div className="basis-2"></div>
@@ -286,6 +325,7 @@ export default function CreateEventPage() {
 									backgroundColor: 'whitesmoke',
 									borderRadius: '6px',
 								}}
+								onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 							></input>
 						</div>
 					</div>
@@ -305,6 +345,7 @@ export default function CreateEventPage() {
 							backgroundColor: 'whitesmoke',
 							borderRadius: '6px',
 						}}
+						onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
 					></input>
 					<br></br>
 					<p style={{ lineHeight: '0.5' }}>&nbsp;</p>
@@ -334,6 +375,7 @@ export default function CreateEventPage() {
 						}}
 					></select>
 				</div>
+				</form>
 			</div>
 		</Layout>
 	);
