@@ -11,6 +11,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 			title: calEvent.title,
 			start: calEvent.startTime.toISOString(),
 			end: calEvent.endTime.toISOString(),
+			url: `/events/${calEvent.id}`,
 		};
 		return fullCalEvent;
 	});
