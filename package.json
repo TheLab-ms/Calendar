@@ -16,7 +16,7 @@
     "@fullcalendar/daygrid": "^6.1.6",
     "@fullcalendar/list": "^6.1.6",
     "@fullcalendar/react": "^6.1.6",
-    "@fullcalendar/timegrid": "^6.1.6",
+    "@fullcalendar/timegrid": "^6.1.7",
     "@prisma/client": "^4.12.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.0.11",
