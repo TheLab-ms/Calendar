@@ -66,7 +66,7 @@ function CreateEventPage(props: CreateEventPageProps) {
 	const userTypes = Object.keys(UserType).filter(k => typeof UserType[k as any] === "number");
 
 	return (
-		<Layout>
+		<Layout headerText='Create Event'>
 			<div className="flex flex-row overflow-x-auto my-8">
 				<form className="flex flex-col w-full">
 					<div className="flex h-full">

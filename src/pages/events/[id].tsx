@@ -38,10 +38,10 @@ const EventDetails = ({
 	const formattedStartTime = new Date(startTime).toLocaleTimeString('en-US', timeOptions);
 	const formattedEndTime = new Date(endTime).toLocaleTimeString('en-US', timeOptions);
 	return (
-		<Layout>
+		<Layout headerText={title} >
 			<div className="header">
 				<div className="container">
-					<h1 className="text-2xl font-bold mt-3 ml-2">{title}</h1>
+					{/* <h1 className="text-2xl font-bold mt-3 ml-2">{title}</h1> */}
 					<h2 className="text-sm mb-3 ml-2" style={{ color: "#5BA1C9" }}>{categoryName}</h2>
 					<div className="grid grid-cols-2">
 						<div>

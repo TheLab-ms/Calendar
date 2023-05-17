@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faMeetup, faTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
-export default function Header() {
-	const { data: session, status } = useSession();
+interface HeaderProps {
+	title: string;
+}
+
+export default function Header(props: HeaderProps) {
+	const { data: session } = useSession();
 	return (
 		<header>
 			<nav
@@ -54,7 +58,7 @@ export default function Header() {
 
 			<div className="mx-auto flex w-full max-w-7xl items-center justify-between rounded-md primary p-2 lg:px-8">
 				<h1 className="text-2xl lg:mb-0 font-bold text-white pt-0 pb-0">
-					Test
+					{props.title || ''}
 				</h1>
 				<div className="text-white">
 					<i className="fas fa-calendar-alt"></i>
