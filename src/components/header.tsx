@@ -37,7 +37,7 @@ export default function Header(props: HeaderProps) {
 							</span>
 						) : (
 							<span className="text-sm font-semibold leading-6 text-gray-900 mr-3">
-								Welcome Guest, <button onClick={() => signIn()}>Log in</button>
+								Welcome Guest, <button onClick={() => signIn("keycloak")}>Log in</button>
 							</span>
 						)}
 						<a href="https://www.facebook.com/thelabms" className="text-gray-900 mr-2">
