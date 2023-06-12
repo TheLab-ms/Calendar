@@ -14,7 +14,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@fullcalendar/daygrid": "^6.1.6",
-    "@fullcalendar/list": "^6.1.6",
+    "@fullcalendar/list": "^6.1.8",
     "@fullcalendar/react": "^6.1.6",
     "@fullcalendar/timegrid": "^6.1.6",
     "@prisma/client": "^4.15.0",
