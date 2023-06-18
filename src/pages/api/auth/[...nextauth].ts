@@ -51,6 +51,10 @@ export const authOptions: NextAuthOptions = {
 			if (user) {
 				token.uid = user.id;
 			}
+			if (profile?.discord) {
+				token.discord = profile.discord;
+			}
+
 			return token;
 		},
 		async session({ session, token }) {
@@ -60,39 +64,12 @@ export const authOptions: NextAuthOptions = {
 			if (!session.user.groups) {
 				session.user.groups = token.groups || [];
 			}
+			if (token.discord) {
+				session.user.discord = token.discord;
+			}
 			return session;
 		},
 	},
-	// callbacks: {
-	// 	async jwt({ token, user, profile }) {
-	// 		console.log({
-	// 			token,
-	// 			user,
-	// 			profile,
-	// 		});
-	// 		if (profile) {
-	// 			token.username = profile?.preferred_username;
-	// 			token.groups = profile?.groups.map((group) => group.replace('/', ''));
-	// 		}
-	// 		if (profile?.discord) {
-	// 			token.discord = profile.discord;
-	// 		}
-	// 		return token;
-	// 	},
-	// 	async session({ session, token }) {
-	// 		if (token.groups) {
-	// 			session.user.groups = token.groups;
-	// 		}
-	// 		if (token.username) {
-	// 			session.user.username = token.username;
-	// 		}
-	// 		if (token.discord) {
-	// 			session.user.discord = token.discord;
-	// 		}
-	// 		session.user.image = '';
-	// 		return session;
-	// 	},
-	// },
 };
 
 export default NextAuth(authOptions);
