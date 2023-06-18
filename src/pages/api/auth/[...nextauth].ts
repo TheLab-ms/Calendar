@@ -1,7 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 import { prisma } from '@/helpers/db';
-import md5 from 'md5';
 
 const {
 	KEYCLOAK_BASE_URL,
@@ -40,10 +39,10 @@ export const authOptions: NextAuthOptions = {
 			return true;
 		},
 		async jwt({ token, user, profile }) {
-			if (user && user.email && !token.picture) {
-				const emailHash = md5(user.email, { encoding: 'binary' });
-				token.picture = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
-			}
+			// if (user && user.email && !token.picture) {
+			// 	const emailHash = md5(user.email, { encoding: 'binary' });
+			// 	token.picture = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
+			// }
 			if (profile && profile.groups) {
 				console.log('Adding groups to token');
 				token.groups = profile?.groups || [];

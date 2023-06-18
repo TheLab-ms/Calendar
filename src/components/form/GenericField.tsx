@@ -1,4 +1,4 @@
-import { CreateFormFields } from '@/interfaces/forms';
+import { CreateEventFormType } from '@/schemas/forms/createEventForm';
 import { Field, FormikErrors, FormikTouched } from 'formik';
 
 interface ConfiguredFieldProps {
@@ -60,13 +60,13 @@ export const ConfiguredField = ({ name, touch, error, component, type, options, 
 
 type GenericFieldProps = ConfiguredFieldProps & {
     title: string;
-    touched: FormikTouched<CreateFormFields>;
-    errors: FormikErrors<CreateFormFields>;
+    touched: FormikTouched<CreateEventFormType>;
+    errors: FormikErrors<CreateEventFormType>;
 }
 
 export const GenericField = ({ name, title, type, component, touched, errors, options, rows }: GenericFieldProps) => {
-    const error = errors[name as keyof CreateFormFields];
-    const touch = touched[name as keyof CreateFormFields] || false;
+    const error = errors[name as keyof CreateEventFormType];
+    const touch = touched[name as keyof CreateEventFormType] || false;
 
     return (
         <>
@@ -84,8 +84,8 @@ export const GenericField = ({ name, title, type, component, touched, errors, op
 
 interface DoubleFieldProps {
     title: string;
-    touched: FormikTouched<CreateFormFields>;
-    errors: FormikErrors<CreateFormFields>;
+    touched: FormikTouched<CreateEventFormType>;
+    errors: FormikErrors<CreateEventFormType>;
     fields: Omit<ConfiguredFieldProps, 'touch'>[];
 }
 
@@ -96,8 +96,8 @@ export const DoubleField = ({ title, fields, errors, touched }: DoubleFieldProps
         </label>
         <div className="flex">
             {fields.map((field, index) => {
-                const error = errors[field.name as keyof CreateFormFields];
-                const touch = touched[field.name as keyof CreateFormFields] || false;
+                const error = errors[field.name as keyof CreateEventFormType];
+                const touch = touched[field.name as keyof CreateEventFormType] || false;
                 const { component, type, options } = field;
                 return (
                     <ConfiguredField key={index} name={field.name} touch={touch} error={error} component={component} type={type} options={options} />

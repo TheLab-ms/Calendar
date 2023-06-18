@@ -16,7 +16,6 @@ generator zod {
   useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
   // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
   prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
-  enumFile                 = "enums" // will generate enum file instead of referencing generated ones from the prisma client
 }
 
 datasource db {
