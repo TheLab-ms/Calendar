@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "studio": "npx prisma studio",
-    "setup": "npx prisma migrate dev --name init",
-    "ver"
+    "setup": "npx prisma migrate dev --name init"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
