@@ -2,7 +2,24 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+function createDateOffset(days: number, hours: number, minutes: number) {
+	const date = new Date();
+	date.setDate(date.getDate() + days);
+	date.setHours(date.getHours() + hours);
+	date.setMinutes(date.getMinutes() + minutes);
+	return date;
+}
+
 async function main() {
+	// Create Users
+	const exampleUser = await prisma.account.create({
+		data: {
+			id: '0',
+			email: 'example@example.com',
+			name: 'Test User',
+		},
+	});
+
 	// Create Categories
 	const electronics = await prisma.category.create({
 		data: { title: 'Electronics' },
@@ -24,12 +41,12 @@ async function main() {
 	// Create Events
 	await prisma.event.create({
 		data: {
-			creatorId: 1,
+			creatorId: exampleUser.id,
 			title: 'Introduction to Arduino',
 			categoryId: electronics.id,
 			locationId: classroom.id,
-			startTime: new Date('2023-05-01T10:00:00.000Z'),
-			endTime: new Date('2023-05-01T12:00:00.000Z'),
+			startTime: createDateOffset(2, 0, 0),
+			endTime: createDateOffset(2, 2, 0),
 			allDay: false,
 			exclusivity: 0,
 			minAttendence: 5,
@@ -45,12 +62,12 @@ async function main() {
 
 	await prisma.event.create({
 		data: {
-			creatorId: 2,
+			creatorId: exampleUser.id,
 			title: 'Woodworking Basics',
 			categoryId: woodworking.id,
 			locationId: workshop.id,
-			startTime: new Date('2023-05-02T14:00:00.000Z'),
-			endTime: new Date('2023-05-02T17:00:00.000Z'),
+			startTime: createDateOffset(3, 0, 0),
+			endTime: createDateOffset(3, 2, 0),
 			allDay: false,
 			exclusivity: 0,
 			minAttendence: 3,

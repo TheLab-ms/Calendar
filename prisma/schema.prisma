@@ -5,6 +5,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider                 = "zod-prisma"
+  output                   = "../src/schemas" // (default) the directory where generated zod schemas will be saved
+
+  relationModel            = true // (default) Create and export both plain and related models.
+  modelCase                = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelSuffix              = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
+
+  useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+  // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+  prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
+  enumFile                 = "enums" // will generate enum file instead of referencing generated ones from the prisma client
+}
+
 datasource db {
   provider = "postgresql"
   url = env("DATABASE_URL")
@@ -27,7 +41,8 @@ model Category {
 
 model Event {
   id        Int @id @default(autoincrement())
-  creatorId Int
+  creator   Account @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   title     String
 
@@ -53,4 +68,11 @@ model Event {
 
   pending  Boolean @default(true)
   approved Boolean @default(false)
+}
+
+model Account {
+  id        String  @unique @id
+  email     String  @unique
+  name      String
+  events    Event[] 
 }
