@@ -78,7 +78,6 @@ function CreateEventPage(props: CreateEventPageProps) {
 						body: JSON.stringify(data),
 					});
 
-					console.log(result);
 				}}
 					validationSchema={toFormikValidationSchema(CreateEventForm)}
 				>
