@@ -19,10 +19,11 @@ export default async function handler(
 	const data = req.body;
 	try {
 		const safeData = CreateEventSchema.parse(JSON.parse(data));
+
 		const event = await prisma.event.create({
 			data: {
 				...safeData,
-				creatorId: session.user.id || '0',
+				creatorId: session.user.id,
 			},
 		});
 		res.status(200).json(event);
