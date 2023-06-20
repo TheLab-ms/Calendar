@@ -8,7 +8,7 @@ interface ConfiguredFieldProps {
     component?: string;
     type?: string;
     options?: {
-        value: string;
+        value: string | number;
         label: string;
     }[];
     min?: number;
@@ -25,10 +25,6 @@ export const ConfiguredField = ({ name, touch, error, component, type, options, 
             }`,
     }
     // Add an empty option to the select field if provided without causing a hyrdation error
-    const computedOptions: { value: string, label: string }[] = [{ value: " ", label: 'Select an option' }];
-    if (options && options.length > 0) {
-        computedOptions.push(...options);
-    }
     return (
         <>
             {
@@ -38,7 +34,7 @@ export const ConfiguredField = ({ name, touch, error, component, type, options, 
                         {...fieldProps}
                     >
                         {component === 'select' && options && (
-                            computedOptions.map((option, index) => (
+                            options.map((option, index) => (
                                 <option key={index} value={option.value}>
                                     {option.label}
                                 </option>

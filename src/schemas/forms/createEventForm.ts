@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { EventModel } from '../index';
 
-// I want to throw an error if the category is not selected
 export const CreateEventForm = EventModel.omit({
 	startTime: true,
 	endTime: true,
@@ -14,6 +13,7 @@ export const CreateEventForm = EventModel.omit({
 	title: true,
 	locationId: true,
 	categoryId: true,
+	minAge: true,
 }).extend({
 	title: z.string().min(3).max(100),
 	startDate: z.string(),
@@ -27,6 +27,7 @@ export const CreateEventForm = EventModel.omit({
 	categoryId: z.string().refine((val) => val !== ' ', {
 		message: 'Please select a category',
 	}),
+	minAge: z.string(),
 });
 
 export interface CreateEventFormType extends z.infer<typeof CreateEventForm> {}

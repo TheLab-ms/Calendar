@@ -7,7 +7,7 @@ import { DoubleField, GenericField } from '@/components/form/GenericField';
 import { AccountRoles } from '@/interfaces/roles';
 import { CreateEventForm, CreateEventFormType } from '@/schemas/forms/createEventForm';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { CreateEventSchemaType } from '@/schemas/api/createEvent';
+import { CreateEventSchema } from '@/schemas/api/createEvent';
 interface CreateEventPageProps {
 	categories: Category[];
 	locations: Location[];
@@ -40,10 +40,26 @@ function CreateEventPage(props: CreateEventPageProps) {
 		reqMaterials: '',
 		minAttendence: 0,
 		maxAttendence: 1,
-		minAge: 0,
+		minAge: '0',
 		specialNotes: '',
 		exclusivity: AccountRoles.GUEST,
 	}
+	const locationOptions = [
+		{ value: " ", label: "Select a location" },
+		...locations.map(location => ({ value: location.id, label: location.title }))
+	];
+
+	const categoryOptions = [
+		{ value: " ", label: "Select a category" },
+		...categories.map(category => ({ value: category.id, label: category.title }))
+	];
+
+	const ageOptions = [
+		{ value: '0', label: "All Ages" },
+		{ value: '18', label: "18+" },
+		{ value: '21', label: "21+" },
+	];
+
 	return (
 		<Layout headerText='Create Event'>
 			<div className="flex flex-row overflow-x-auto my-8">
@@ -51,11 +67,12 @@ function CreateEventPage(props: CreateEventPageProps) {
 					const startDateTime = new Date(`${values.startDate}T${values.startTime}`);
 					const endDateTime = new Date(`${values.endDate}T${values.endTime}`);
 
-					const data: CreateEventSchemaType = {
+					const data = CreateEventSchema.parse({
 						...values,
 						startTime: startDateTime,
 						endTime: endDateTime,
-					}
+					});
+
 					const result = await fetch('/api/events/create', {
 						method: 'POST',
 						body: JSON.stringify(data),
@@ -74,8 +91,8 @@ function CreateEventPage(props: CreateEventPageProps) {
 							<div className="flex h-full">
 								<div className="w-2/5 pr-4 flex flex-col">
 									<GenericField name="title" title="Event Name" type='text' errors={errors} touched={touched} />
-									<GenericField name="categoryId" title="Category" component='select' errors={errors} touched={touched} options={categories.map(category => ({ value: category.id, label: category.title }))} />
-									<GenericField name="locationId" title="Location" component='select' errors={errors} touched={touched} options={locations.map(location => ({ value: location.id, label: location.title }))} />
+									<GenericField name="categoryId" title="Category" component='select' errors={errors} touched={touched} options={categoryOptions} />
+									<GenericField name="locationId" title="Location" component='select' errors={errors} touched={touched} options={locationOptions} />
 									<DoubleField title="Start Date" errors={errors} touched={touched} fields={[
 										{ name: 'startDate', type: 'date' },
 										{ name: 'startTime', type: 'time' }
@@ -119,11 +136,7 @@ function CreateEventPage(props: CreateEventPageProps) {
 										</div>
 
 										<div className="w-1/3 pl-2">
-											<GenericField name="minAge" title="Minimum Age" component='select' errors={errors} touched={touched} options={[
-												{ value: 0, label: 'No restriction' },
-												{ value: 1, label: '18+' },
-												{ value: 2, label: '21+' },
-											]} />
+											<GenericField name="minAge" title="Minimum Age" component='select' errors={errors} touched={touched} options={ageOptions} />
 										</div>
 									</div>
 

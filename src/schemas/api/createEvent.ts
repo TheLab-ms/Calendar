@@ -9,6 +9,7 @@ export const CreateEventSchema = EventModel.omit({
 	allDay: true,
 	startTime: true,
 	endTime: true,
+	minAge: true,
 }).extend({
 	startTime: z
 		.string()
@@ -18,6 +19,15 @@ export const CreateEventSchema = EventModel.omit({
 		.string()
 		.or(z.date())
 		.transform((val) => new Date(val)),
+	minAge: z
+		.string()
+		.or(z.number())
+		.transform((val) => {
+			if (typeof val === 'string') {
+				return parseInt(val);
+			}
+			return val;
+		}),
 });
 
 export interface CreateEventSchemaType
