@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import KeycloakProvider from 'next-auth/providers/keycloak';
+import { prisma } from '@/helpers/db';
 
 const {
 	KEYCLOAK_BASE_URL,
@@ -21,32 +22,50 @@ export const authOptions: NextAuthOptions = {
 		colorScheme: 'light',
 	},
 	callbacks: {
-		async jwt({ token, user, profile }) {
-			console.log({
-				token,
-				user,
-				profile,
+		async signIn(params) {
+			console.log(JSON.stringify(params, null, 2));
+			// TODO: Store Discord ID in DB
+			const { id, name, email } = params.user;
+			if (!id || !name || !email) {
+				// Something is wrong with the user object, don't allow signin
+				return false;
+			}
+			// On signin create a Account or update it if it already exists (this allows users to update their info and have it updated on their next login)
+			await prisma.account.upsert({
+				where: { id },
+				update: { email, name },
+				create: { id, email, name },
 			});
-			if (profile) {
-				token.username = profile?.preferred_username;
-				token.groups = profile?.groups.map((group) => group.replace('/', ''));
+			return true;
+		},
+		async jwt({ token, user, profile }) {
+			// if (user && user.email && !token.picture) {
+			// 	const emailHash = md5(user.email, { encoding: 'binary' });
+			// 	token.picture = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
+			// }
+			if (profile && profile.groups) {
+				console.log('Adding groups to token');
+				token.groups = profile?.groups || [];
+			}
+			if (user) {
+				token.uid = user.id;
 			}
 			if (profile?.discord) {
 				token.discord = profile.discord;
 			}
+
 			return token;
 		},
 		async session({ session, token }) {
-			if (token.groups) {
-				session.user.groups = token.groups;
+			if (session?.user) {
+				session.user.id = token.uid as string;
 			}
-			if (token.username) {
-				session.user.username = token.username;
+			if (!session.user.groups) {
+				session.user.groups = token.groups || [];
 			}
 			if (token.discord) {
 				session.user.discord = token.discord;
 			}
-			session.user.image = '';
 			return session;
 		},
 	},

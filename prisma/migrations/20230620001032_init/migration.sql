@@ -19,7 +19,7 @@ CREATE TABLE "Category" (
 -- CreateTable
 CREATE TABLE "Event" (
     "id" SERIAL NOT NULL,
-    "creatorId" INTEGER NOT NULL,
+    "creatorId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "locationId" INTEGER NOT NULL,
@@ -39,11 +39,29 @@ CREATE TABLE "Event" (
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Account" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Location_title_key" ON "Location"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Category_title_key" ON "Category"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Account_id_key" ON "Account"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Account_email_key" ON "Account"("email");
+
+-- AddForeignKey
+ALTER TABLE "Event" ADD CONSTRAINT "Event_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

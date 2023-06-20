@@ -1,36 +1,15 @@
 import { GetServerSideProps } from 'next';
-import { PrismaClient } from '@prisma/client';
 import Layout from '../../components/layout';
 import { prisma } from '@/helpers/db';
+import { CompleteEvent } from '@/schemas';
+
+interface EventDetailsProps {
+	event: CompleteEvent;
+}
 
 const EventDetails = ({
 	event,
-}: {
-	event: {
-		id: number;
-		creatorId: number;
-		title: string;
-		category: {
-			title: string;
-		}
-		location: {
-			title: string;
-			maxSeating: number;
-		}
-		startTime: string;
-		endTime: string;
-		allDay: boolean;
-		exclusivity: number;
-		minAttendence: number;
-		maxAttendence: number;
-		minAge?: number;
-		description: string;
-		specialNotes?: string;
-		reqMaterials?: string;
-		pending: boolean;
-		approved: boolean;
-	};
-}) => {
+}: EventDetailsProps) => {
 	const { title, category: { title: categoryName }, location: { title: locationName }, startTime, endTime, reqMaterials, description } = event;
 	const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
 	const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
@@ -73,9 +52,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 
 	const { id } = context.params;
+
+	if (typeof id !== 'string') {
+		return {
+			notFound: true,
+		};
+	}
 	// Make a prisma call that gets an event by id and includes the category title
 	const event = await prisma.event.findUnique({
-		where: { id: Number(id) },
+		where: { id },
 		include: {
 			category: {
 				select: {

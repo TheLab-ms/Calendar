@@ -6,6 +6,8 @@ declare namespace NodeJS {
 		KEYCLOAK_REALM: string;
 		KEYCLOAK_CLIENT_ID: string;
 		KEYCLOAK_CLIENT_SECRET: string;
-		KEYCLOAK_ADMIN_GROUP: string;
+		CREATE_EVENT_ROLE: string;
+		APPROVE_EVENT_ROLE: string;
+		ADMIN_ROLE: string;
 	}
 }
