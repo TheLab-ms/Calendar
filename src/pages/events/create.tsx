@@ -30,8 +30,8 @@ function CreateEventPage(props: CreateEventPageProps) {
 	const { categories, locations } = props;
 	const initialValues: CreateEventFormType = {
 		title: '',
-		categoryId: categories[0].id,
-		locationId: locations[0].id,
+		categoryId: " ",
+		locationId: " ",
 		startDate: '',
 		endDate: '',
 		startTime: '',

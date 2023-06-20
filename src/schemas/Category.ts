@@ -2,7 +2,7 @@ import { z } from "zod"
 import { CompleteEvent, RelatedEventModel } from "./index"
 
 export const CategoryModel = z.object({
-  id: z.number().int(),
+  id: z.string(),
   title: z.string(),
 })
 

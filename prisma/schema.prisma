@@ -25,7 +25,7 @@ datasource db {
 
 
 model Location {
-  id         Int     @id @default(autoincrement())
+  id         String    @id @default(uuid())
   title      String  @unique
   roomId     String?
   maxSeating Int?
@@ -33,23 +33,23 @@ model Location {
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
+  id    String     @id @default(uuid())
   title String  @unique
   Event Event[]
 }
 
 model Event {
-  id        Int @id @default(autoincrement())
+  id        String @id @default(uuid())
   creator   Account @relation(fields: [creatorId], references: [id])
   creatorId String
 
   title     String
 
   category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  categoryId String
 
   location   Location @relation(fields: [locationId], references: [id])
-  locationId Int
+  locationId String
 
   startTime DateTime
   endTime   DateTime
@@ -70,7 +70,7 @@ model Event {
 }
 
 model Account {
-  id        String  @unique @id
+  id        String  @id
   email     String  @unique
   name      String
   events    Event[] 

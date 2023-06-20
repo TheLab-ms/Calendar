@@ -2,11 +2,11 @@ import { z } from "zod"
 import { CompleteAccount, RelatedAccountModel, CompleteCategory, RelatedCategoryModel, CompleteLocation, RelatedLocationModel } from "./index"
 
 export const EventModel = z.object({
-  id: z.number().int(),
+  id: z.string(),
   creatorId: z.string(),
   title: z.string(),
-  categoryId: z.number().int(),
-  locationId: z.number().int(),
+  categoryId: z.string(),
+  locationId: z.string(),
   startTime: z.date(),
   endTime: z.date(),
   allDay: z.boolean(),
