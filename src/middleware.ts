@@ -5,15 +5,21 @@ import { UserRoles } from './interfaces/roles';
 export default withAuth({
 	callbacks: {
 		authorized({ req, token }) {
-			if (!token || !token.groups) return false;
+			if (!token || !token.groups) {
+				console.log('no token or groups');
+				return false;
+			}
 			const role = getRoleByGroup(token.groups);
+			console.log('Role: ', role);
 			if (role === UserRoles.ADMIN) {
+				console.log('Admitting because the user is an admin');
 				return true;
 			}
 			if (
 				req.nextUrl.pathname === '/create/queue' &&
 				role === UserRoles.APPROVE_EVENT
 			) {
+				console.log('Admitting because the user is an approver');
 				return true;
 			}
 
@@ -22,9 +28,10 @@ export default withAuth({
 					role === UserRoles.CREATE_EVENT) ||
 				role === UserRoles.APPROVE_EVENT
 			) {
+				console.log('Admitting because the user is an approver or creator');
 				return true;
 			}
-
+			console.log('No match');
 			return false;
 		},
 	},

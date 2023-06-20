@@ -23,7 +23,6 @@ export const authOptions: NextAuthOptions = {
 	},
 	callbacks: {
 		async signIn(params) {
-			console.log(JSON.stringify(params, null, 2));
 			// TODO: Store Discord ID in DB
 			const { id, name, email } = params.user;
 			if (!id || !name || !email) {
@@ -31,11 +30,12 @@ export const authOptions: NextAuthOptions = {
 				return false;
 			}
 			// On signin create a Account or update it if it already exists (this allows users to update their info and have it updated on their next login)
-			await prisma.account.upsert({
+			const result = await prisma.account.upsert({
 				where: { id },
 				update: { email, name },
 				create: { id, email, name },
 			});
+
 			return true;
 		},
 		async jwt({ token, user, profile }) {
@@ -44,7 +44,6 @@ export const authOptions: NextAuthOptions = {
 			// 	token.picture = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
 			// }
 			if (profile && profile.groups) {
-				console.log('Adding groups to token');
 				token.groups = profile?.groups || [];
 			}
 			if (user) {
