@@ -9,6 +9,7 @@ export const CreateEventForm = EventModel.omit({
 	allDay: true,
 	pending: true,
 	approved: true,
+	minAttendence: true,
 	maxAttendence: true,
 	title: true,
 	locationId: true,
@@ -20,6 +21,7 @@ export const CreateEventForm = EventModel.omit({
 	endDate: z.string(),
 	startTime: z.string(),
 	endTime: z.string(),
+	minAttendence: z.number().int().min(0).max(1000),
 	maxAttendence: z.number().int().min(1).max(1000),
 	locationId: z.string().refine((val) => val !== ' ', {
 		message: 'Please select a location',
