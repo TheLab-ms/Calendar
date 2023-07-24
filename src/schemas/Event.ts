@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { CompleteAccount, RelatedAccountModel, CompleteCategory, RelatedCategoryModel, CompleteLocation, RelatedLocationModel } from "./index"
+import { CompleteAccount, RelatedAccountModel, CompleteCategory, RelatedCategoryModel, CompleteLocation, RelatedLocationModel, CompleteRSVP, RelatedRSVPModel } from "./index"
 
 export const EventModel = z.object({
   id: z.string(),
@@ -19,12 +19,15 @@ export const EventModel = z.object({
   reqMaterials: z.string().nullish(),
   pending: z.boolean(),
   approved: z.boolean(),
+  discordEventId: z.string().nullish(),
+  googleCalendarEventId: z.string().nullish(),
 })
 
 export interface CompleteEvent extends z.infer<typeof EventModel> {
   creator: CompleteAccount
   category: CompleteCategory
   location: CompleteLocation
+  RSVP: CompleteRSVP[]
 }
 
 /**
@@ -36,4 +39,5 @@ export const RelatedEventModel: z.ZodSchema<CompleteEvent> = z.lazy(() => EventM
   creator: RelatedAccountModel,
   category: RelatedCategoryModel,
   location: RelatedLocationModel,
+  RSVP: RelatedRSVPModel.array(),
 }))

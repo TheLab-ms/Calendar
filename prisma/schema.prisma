@@ -6,26 +6,25 @@ generator client {
 }
 
 generator zod {
-  provider                 = "zod-prisma"
-  output                   = "../src/schemas" // (default) the directory where generated zod schemas will be saved
+  provider = "zod-prisma"
+  output   = "../src/schemas" // (default) the directory where generated zod schemas will be saved
 
-  relationModel            = true // (default) Create and export both plain and related models.
-  modelCase                = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
-  modelSuffix              = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
+  relationModel = true // (default) Create and export both plain and related models.
+  modelCase     = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelSuffix   = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
 
-  useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+  useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
   // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
-  prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
+  prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
 }
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
-
 model Location {
-  id         String    @id @default(uuid())
+  id         String  @id @default(uuid())
   title      String  @unique
   roomId     String?
   maxSeating Int?
@@ -33,17 +32,17 @@ model Location {
 }
 
 model Category {
-  id    String     @id @default(uuid())
+  id    String  @id @default(uuid())
   title String  @unique
   Event Event[]
 }
 
 model Event {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid())
   creator   Account @relation(fields: [creatorId], references: [id])
   creatorId String
 
-  title     String
+  title String
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
@@ -67,11 +66,26 @@ model Event {
 
   pending  Boolean @default(true)
   approved Boolean @default(false)
+  RSVP     RSVP[]
+
+  discordEventId String?
+  googleCalendarEventId String?
+
 }
 
 model Account {
-  id        String  @id
-  email     String  @unique
-  name      String
-  events    Event[] 
+  id     String  @id
+  email  String  @unique
+  name   String
+  events Event[]
+  RSVP   RSVP[]
+}
+
+model RSVP {
+  id        String   @id @default(uuid())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId String
+  createdAt DateTime @default(now())
 }
