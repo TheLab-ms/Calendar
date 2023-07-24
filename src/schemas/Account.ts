@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { CompleteEvent, RelatedEventModel } from "./index"
+import { CompleteEvent, RelatedEventModel, CompleteRSVP, RelatedRSVPModel } from "./index"
 
 export const AccountModel = z.object({
   id: z.string(),
@@ -9,6 +9,7 @@ export const AccountModel = z.object({
 
 export interface CompleteAccount extends z.infer<typeof AccountModel> {
   events: CompleteEvent[]
+  RSVP: CompleteRSVP[]
 }
 
 /**
@@ -18,4 +19,5 @@ export interface CompleteAccount extends z.infer<typeof AccountModel> {
  */
 export const RelatedAccountModel: z.ZodSchema<CompleteAccount> = z.lazy(() => AccountModel.extend({
   events: RelatedEventModel.array(),
+  RSVP: RelatedRSVPModel.array(),
 }))
