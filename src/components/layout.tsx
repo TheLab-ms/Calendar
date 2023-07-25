@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import Header from "./header"
+import { ToastContainer } from "react-toastify";
 
 interface LayoutProps {
     children: ReactNode;
@@ -8,11 +9,12 @@ interface LayoutProps {
 
 export default function Layout({ children, headerText }: LayoutProps) {
     return (
-        <>
+        <div className="mx-10">
             <Header title={headerText} />
-            <div className="flex flex-col mx-auto max-w-7xl" id="contents">
+            <div className="flex flex-col mx-auto" id="contents">
                 {children}
             </div>
-        </>
+            <ToastContainer />
+        </div>
     )
 }
