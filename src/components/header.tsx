@@ -13,7 +13,7 @@ export default function Header(props: HeaderProps) {
 	return (
 		<header>
 			<nav
-				className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+				className="mx-auto flex items-center justify-between p-6 lg:px-8"
 				aria-label="Global"
 			>
 				<div className="flex lg:flex-1">
@@ -28,7 +28,7 @@ export default function Header(props: HeaderProps) {
 						/>
 					</Link>
 				</div>
-				<div className="max-w-7xl lg:flex lg:flex-1 lg:justify-end">
+				<div className="lg:flex lg:flex lg:justify-center">
 					<div className="flex items-center">
 						{session ? (
 							<span className="text-sm font-semibold leading-6 text-gray-900 mr-3">
@@ -56,8 +56,8 @@ export default function Header(props: HeaderProps) {
 				</div>
 			</nav>
 
-			<div className="mx-auto flex w-full max-w-7xl items-center justify-between rounded-md primary p-2 lg:px-8">
-				<h1 className="text-2xl lg:mb-0 font-bold text-white pt-0 pb-0">
+			<div className="primary w-full rounded-md p-5">
+				<h1 className="text-4xl lg:mb-0 font-bold text-white pt-0 pb-0">
 					{props.title || ''}
 				</h1>
 				<div className="text-white">

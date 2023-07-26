@@ -88,4 +88,6 @@ model RSVP {
   account   Account  @relation(fields: [accountId], references: [id])
   accountId String
   createdAt DateTime @default(now())
+
+  @@unique([eventId, accountId])
 }
