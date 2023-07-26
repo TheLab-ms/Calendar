@@ -8,6 +8,8 @@ import { AccountRoles } from '@/interfaces/roles';
 import { CreateEventForm, CreateEventFormType } from '@/schemas/forms/createEventForm';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { CreateEventSchema } from '@/schemas/api/createEvent';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 interface CreateEventPageProps {
 	categories: Category[];
 	locations: Location[];
@@ -28,6 +30,7 @@ const AccountRoless = Object.keys(AccountRoles).filter(k => typeof AccountRoles[
 
 function CreateEventPage(props: CreateEventPageProps) {
 	const { categories, locations } = props;
+	const router = useRouter();
 	const initialValues: CreateEventFormType = {
 		title: '',
 		categoryId: " ",
@@ -77,6 +80,14 @@ function CreateEventPage(props: CreateEventPageProps) {
 						method: 'POST',
 						body: JSON.stringify(data),
 					});
+					const eventCreated = await result.json();
+					if (result) {
+						toast.success('Event created successfully!')
+						await new Promise(resolve => setTimeout(resolve, 10000));
+						router.push(`/events/${eventCreated.id}`);
+					} else {
+						toast.error('There was an error creating your event.');
+					}
 
 				}}
 					validationSchema={toFormikValidationSchema(CreateEventForm)}
