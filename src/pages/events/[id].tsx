@@ -37,15 +37,18 @@ const EventDetails = ({
 		}).then((res) => {
 			if (res.ok) {
 				setUserRSVPed(!userRSVPed);
-				toast.success("Success!", {
+				toast.success("Successfully RSVP'd", {
 					position: "top-center",
 				});
 			} else {
-				alert('RSVP failed!');
+				toast.error("RSVP failed", {
+					position: "top-center",
+				});
 			}
 		}).catch((err) => {
-			console.error(err);
-			alert('RSVP failed!');
+			toast.error("RSVP failed", {
+				position: "top-center",
+			});
 		})
 	}
 	return (
