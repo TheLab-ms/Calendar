@@ -34,7 +34,7 @@
   "devDependencies": {
     "@acadarena/zod-prisma": "github:AcadArena/zod-prisma",
     "@types/luxon": "^3.3.0",
-    "@types/node": "^18.16.18",
+    "@types/node": "^20.8.3",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.8.0",
     "postcss": "^8.4.21",
